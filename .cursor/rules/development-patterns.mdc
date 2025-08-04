@@ -1,0 +1,57 @@
+---
+globs: *.ts,*.tsx,*.js,*.jsx
+description: Development patterns for OpenAI course content
+---
+
+# Development Patterns for OpenAI Course
+
+## 🎯 Code Style Guidelines
+
+### Engagement-First Development
+- **Hook early**: First 10 lines should show immediate AI response
+- **Visual feedback**: Always show streaming/loading states
+- **Error handling**: Graceful failures with helpful messages
+- **Performance**: Fast, responsive, no unnecessary delays
+
+### OpenAI Client Patterns
+```typescript
+// ✅ Preferred: Centralized client in packages/core
+import { openai } from '@repo/core'
+
+// ✅ Always handle streaming
+const stream = openai.responses.create({
+  stream: true,
+  // ...
+})
+
+// ✅ Use Zod for structured outputs
+const schema = z.object({
+  summary: z.string(),
+  tasks: z.array(z.string())
+})
+```
+
+### Module Organization
+- Each lesson = separate script in `apps/cli/`
+- Shared utilities in `packages/core/`
+- UI demos only when visual impact matters
+- Keep examples under 50 lines when possible
+
+### RAG Best Practices
+- Use built-in tools before custom implementations
+- Context window discipline (track token usage)
+- Show cosine similarity scores for learning
+- Demonstrate both simple and production patterns
+
+### Voice/Realtime Patterns
+- Handle WebRTC cleanup properly
+- Show ephemeral token management
+- Demonstrate both text and audio modes
+- Keep latency visible for learning
+
+## 🚫 Avoid These Patterns
+- Complex setup procedures
+- Full SDK coverage (focus on ROI)
+- Abstract examples (use real business cases)
+- Long explanations before demos
+- Over-engineering for course content

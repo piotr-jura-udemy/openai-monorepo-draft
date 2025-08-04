@@ -1,0 +1,57 @@
+---
+alwaysApply: true
+description: OpenAI Course Monorepo Structure and Goals
+---
+
+# OpenAI Course Monorepo
+
+This is a **5-hour Udemy course** monorepo that teaches developers to build ChatGPT clones, voice apps, and AI tools using OpenAI APIs.
+
+## 🎯 Course Goal
+Get devs from zero to "I can build ChatGPT+Clone+Voice+Docs+Tools" with immediate, practical results.
+
+## 📁 Project Structure
+```
+apps/
+  cli/         # ts-node scripts for terminal demos (90% of course)
+  web/         # Next.js for chat/voice UI demos
+services/
+  session/     # Token server for WebRTC Realtime API
+packages/
+  core/        # Shared: openai.ts, vector.ts, Zod schemas, tools
+```
+
+## 🧠 Learning Focus (Priority APIs)
+1. **Responses API** - Core chat + structured JSON + tools
+2. **Streaming (SSE)** - Real-time UI for engagement  
+3. **Embeddings + RAG** - Document Q&A, PDF search
+4. **Tool calling** - Web/file tools with no infrastructure
+5. **WebRTC (Realtime)** - Voice browser agent for "wow" factor
+6. **Zod + JSON output** - Safe structured workflows
+7. **Agents SDK** - Optional automation demo
+
+## 📚 10 Course Modules
+1. First AI app in 5 minutes (immediate payoff)
+2. ChatGPT clone with streaming
+3. Smart JSON replies with Zod schemas
+4. RAG v1: Search your docs
+5. RAG v2: AI with no backend (built-in tools)
+6. Voice-enabled AI (Realtime API)
+7. Generate images + speech (multi-modal)
+8. Agents that plan + execute
+9. Batch generate content at scale
+10. Final projects: Chat clone, Docs Q&A, Voice Concierge
+
+## 🛠️ Development Principles
+- **Show before explain** - Visual demos first, theory second
+- **Terminal + minimal UI** - No yak shaving, only "wow I built this"
+- **Business use cases** - Real problems like doc search, voice scheduling
+- **Shareable demos** - Viral-worthy, job interview impressive
+- **Immediate feedback** - First 10 minutes should stream GPT-4o response
+
+## 🔧 Tech Stack
+- **Package Manager**: pnpm with workspaces
+- **Runtime**: Node.js with ts-node for CLI
+- **UI Framework**: Next.js for web demos
+- **Schema Validation**: Zod for structured outputs
+- **APIs**: OpenAI Responses, Embeddings, Realtime, Batch, Images, Audio

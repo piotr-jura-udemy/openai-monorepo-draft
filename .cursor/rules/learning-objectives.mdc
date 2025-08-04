@@ -1,0 +1,50 @@
+---
+description: Course learning objectives and student outcomes
+---
+
+# Learning Objectives & Student Outcomes
+
+## 🎓 What Students Will Learn
+
+### Core OpenAI APIs (Must Know)
+- `openai.responses.create()` - Plain + streaming responses
+- `stream: true` - Render in CLI and UI
+- `response_format: { type: 'json_schema' }` - Structured outputs with Zod
+- `embeddings.create()` - Vector search and cosine scoring
+- RAG prompt stuffing patterns and context window management
+- `tools: [{ type: 'web_search' }]` - Built-in tools usage
+- WebRTC voice with ephemeral tokens
+- Image generation and artifact decoding
+- `audio.speech.create()` - Text-to-speech
+- `@openai/agents` SDK - Declarative tool usage
+- Batch API workflow - JSONL → file → poll → download
+
+### Student Success Metrics
+After each module, students can:
+
+1. **Module 1**: Stream GPT-4o responses in terminal
+2. **Module 2**: Build working ChatGPT clone with UI
+3. **Module 3**: Generate structured data for automation
+4. **Module 4**: Search and answer questions from documents
+5. **Module 5**: Build no-backend AI with web search
+6. **Module 6**: Create voice-enabled browser agent
+7. **Module 7**: Generate images and explain with voice
+8. **Module 8**: Build agents that use tools automatically
+9. **Module 9**: Process content at production scale
+10. **Module 10**: Deploy shareable demos
+
+## 🏆 Final Capstone Projects
+Students build three complete applications:
+1. **ChatGPT Clone** - Streaming chat with memory
+2. **Document Q&A System** - RAG-powered knowledge base
+3. **Voice Concierge** - Speaking AI assistant
+
+## 💼 Business Value Demonstrations
+- Customer support chatbots
+- Document search and summarization
+- Content generation at scale
+- Voice interfaces for accessibility
+- Automated workflow triggers
+- Multi-modal content creation
+
+These examples solve real problems students face in their jobs.
