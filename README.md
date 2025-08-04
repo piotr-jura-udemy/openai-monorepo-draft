@@ -17,10 +17,12 @@ A 5-hour Udemy course teaching developers to build ChatGPT clones, voice apps, a
    pnpm install
    ```
 
-3. **Run your first AI app:**
+3. **Run lessons:**
    ```bash
    cd apps/cli
-   pnpm lesson-1
+   pnpm lesson-1  # First AI app with streaming
+   pnpm lesson-2  # ChatGPT clone with memory
+   pnpm lesson-3  # Smart JSON with Zod schemas
    ```
 
 ## 📁 Project Structure
@@ -39,8 +41,8 @@ Get from zero to "I can build ChatGPT+Clone+Voice+Tools" with immediate, practic
 ## 📚 Lessons
 
 1. ✅ **First AI app in 5 minutes** - Streaming GPT-4o responses
-2. 🔄 ChatGPT clone with memory (coming next)
-3. 🔄 Smart JSON replies with Zod schemas
+2. ✅ **ChatGPT clone with memory** - Terminal chat with conversation history
+3. ✅ **Smart JSON replies with Zod schemas** - Structured data extraction
 4. 🔄 RAG: Search your documents
 5. 🔄 AI with no backend (built-in tools)
 6. 🔄 Voice-enabled AI (Realtime API)
