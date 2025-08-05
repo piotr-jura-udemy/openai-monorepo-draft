@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+import "dotenv/config";
 
 /**
  * Module 4: RAG v1 - Search your docs
@@ -107,18 +108,6 @@ Please provide a helpful answer based only on the information provided above.`;
 
 async function main() {
   console.log("🚀 Module 4: RAG v1 - Search your documents\n");
-
-  // Check if API key is available
-  if (!process.env.OPENAI_API_KEY) {
-    console.log("❌ Missing OPENAI_API_KEY environment variable");
-    console.log("   Set your API key: export OPENAI_API_KEY=your_key_here");
-    console.log("\n💡 This lesson demonstrates:");
-    console.log("   - Document embeddings for semantic search");
-    console.log("   - Cosine similarity calculations");
-    console.log("   - RAG (Retrieval Augmented Generation)");
-    console.log("   - Context-aware AI responses");
-    return;
-  }
 
   // Build the knowledge base
   const knowledgeBase = await buildKnowledgeBase();
