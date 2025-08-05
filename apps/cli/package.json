@@ -6,6 +6,7 @@
     "lesson-1": "cd ../.. && tsx apps/cli/lessons/01-first-ai-app.ts",
     "lesson-2": "cd ../.. && tsx apps/cli/lessons/02-chatgpt-clone.ts",
     "lesson-3": "cd ../.. && tsx apps/cli/lessons/03-smart-json.ts",
+    "lesson-4": "cd ../.. && tsx apps/cli/lessons/04-rag-search-docs.ts",
     "dev": "echo 'CLI demos ready'"
   },
   "dependencies": {

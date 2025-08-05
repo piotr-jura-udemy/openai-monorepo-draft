@@ -1,9 +1,10 @@
 import OpenAI from "openai";
 import { z } from "zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
 
 // Initialize OpenAI client with API key from environment
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || "dummy-key-for-testing",
 });
 
 // Streaming helper for CLI demos
@@ -96,7 +97,7 @@ export async function structuredResponse<T>(
       type: "json_schema",
       json_schema: {
         name,
-        schema: zodToJsonSchema(schema),
+        schema: zodToJsonSchema(schema, { target: "openApi3" }),
         strict: true,
       },
     },
@@ -115,68 +116,46 @@ export async function structuredResponse<T>(
   }
 }
 
-// Convert Zod schema to JSON schema (simplified version)
-function zodToJsonSchema(schema: z.ZodSchema): any {
-  // This is a simplified converter - in production, use zod-to-json-schema
-  if (schema instanceof z.ZodObject) {
-    const shape = schema.shape;
-    const properties: any = {};
-    const required: string[] = [];
+// Now using the proper zod-to-json-schema library! ✨
 
-    for (const [key, value] of Object.entries(shape)) {
-      const typeName = (value as any)._def?.typeName;
+// Document chunk for RAG
+export interface DocumentChunk {
+  content: string;
+  embedding?: number[];
+  metadata?: Record<string, any>;
+}
 
-      if (typeName === "ZodOptional") {
-        // Handle optional fields by recursing into the inner type
-        const innerType = (value as any)._def.innerType;
-        const innerTypeName = innerType._def?.typeName;
+// Create embeddings for text chunks
+export async function createEmbeddings(texts: string[]): Promise<number[][]> {
+  const response = await openai.embeddings.create({
+    model: "text-embedding-3-small",
+    input: texts,
+  });
 
-        if (innerTypeName === "ZodString") {
-          properties[key] = { type: "string" };
-        } else if (innerTypeName === "ZodEnum") {
-          properties[key] = {
-            type: "string",
-            enum: innerType._def.values,
-          };
-        } else if (innerTypeName === "ZodNumber") {
-          properties[key] = { type: "number" };
-        } else if (innerTypeName === "ZodBoolean") {
-          properties[key] = { type: "boolean" };
-        } else if (innerTypeName === "ZodArray") {
-          properties[key] = { type: "array", items: { type: "string" } };
-        }
-        // Don't add optional fields to required array
-      } else {
-        // Handle required fields
-        if (typeName === "ZodString") {
-          properties[key] = { type: "string" };
-          required.push(key);
-        } else if (typeName === "ZodNumber") {
-          properties[key] = { type: "number" };
-          required.push(key);
-        } else if (typeName === "ZodBoolean") {
-          properties[key] = { type: "boolean" };
-          required.push(key);
-        } else if (typeName === "ZodEnum") {
-          properties[key] = {
-            type: "string",
-            enum: (value as any)._def.values,
-          };
-          required.push(key);
-        } else if (typeName === "ZodArray") {
-          properties[key] = { type: "array", items: { type: "string" } };
-          required.push(key);
-        }
-      }
-    }
+  return response.data.map((item) => item.embedding);
+}
 
-    return {
-      type: "object",
-      properties,
-      required,
-      additionalProperties: false,
-    };
-  }
+// Calculate cosine similarity between two vectors
+export function cosineSimilarity(a: number[], b: number[]): number {
+  const dotProduct = a.reduce((sum, val, i) => sum + val * b[i], 0);
+  const magnitudeA = Math.sqrt(a.reduce((sum, val) => sum + val * val, 0));
+  const magnitudeB = Math.sqrt(b.reduce((sum, val) => sum + val * val, 0));
 
-  return { type: "object" };
+  return dotProduct / (magnitudeA * magnitudeB);
+}
+
+// Search documents using semantic similarity
+export function searchDocuments(
+  query: number[],
+  documents: DocumentChunk[],
+  limit: number = 3
+): Array<DocumentChunk & { similarity: number }> {
+  return documents
+    .filter((doc) => doc.embedding)
+    .map((doc) => ({
+      ...doc,
+      similarity: cosineSimilarity(query, doc.embedding!),
+    }))
+    .sort((a, b) => b.similarity - a.similarity)
+    .slice(0, limit);
 }
